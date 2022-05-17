@@ -51,8 +51,6 @@ class MapperService {
 
     public async getExcelHeaders(fileId): Promise<String[]> {
         const fileContent = await this.fileContentHandler.getFileContentById(fileId);
-        console.log("FIle Content");
-        console.log(fileContent);
         return this.excelDataHandler.getExcelHeaders(fileContent["name"]);
     }
 

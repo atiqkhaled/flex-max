@@ -1,10 +1,13 @@
 import FileContentHandler from "../handler/fileContent.handler";
 import FileContentListHandler from "../handler/fileContentList.handler";
+import FileInjectionHandler from "../handler/fileInjection.handler";
 import { IFileContent } from "../model/fileContent.model";
 
 class FileContentService {
     private static fileContentService: FileContentService;
     private fileContentListHandler: FileContentListHandler = FileContentListHandler
+        .getHandlerInstance();
+    private injectionHandler: FileInjectionHandler = FileInjectionHandler
         .getHandlerInstance();
 
     private fileContentHandler: FileContentHandler = FileContentHandler
@@ -36,7 +39,15 @@ class FileContentService {
     }
 
     public async updateFileStatusWithMappedStatus(fileId) {
-        return this.fileContentHandler.updateFileStatusWithMappedStatus(fileId)
+        return this.fileContentHandler.updateFileStatus(fileId, "MAPPED")
+    }
+
+    public async injectData(fileId): Promise<any> {
+        console.log("fileId")
+        console.log(fileId)
+        this.injectionHandler.injectData(fileId)
+        await this.fileContentHandler.updateFileStatus(fileId, "INJECTION_STARTED");
+        return { "status": "INJECTION_STARTED" }
     }
 
 }

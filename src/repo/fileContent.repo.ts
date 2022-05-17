@@ -65,15 +65,17 @@ class FileContentRepo {
         return await fileContentModel.findById(fileId);
     }
 
-    public async updateFileStatusWithMappedStatus(fileId) {
+    public async updateFileStatus(fileId,status) {
         let fileContent = await fileContentModel.findById(fileId);
-        console.log("update");
-        console.log("fileContent");
-
-        let mappedStatus = await statusModel.findOne({ "name": "MAPPED" });
+        let mappedStatus = await statusModel.findOne({ "name": status });
         fileContent["status"] = mappedStatus;
-        console.log("fileStatus");
-        console.log(mappedStatus);
+        fileContent.save()
+    }
+
+    public async updateFileStatusWithInjectionStartStatus(fileId) {
+        let fileContent = await fileContentModel.findById(fileId);
+        let mappedStatus = await statusModel.findOne({ "name": "INJECTION_STARTED" });
+        fileContent["status"] = mappedStatus;
         fileContent.save()
     }
 

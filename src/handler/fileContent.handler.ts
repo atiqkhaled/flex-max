@@ -22,8 +22,8 @@ class FileContentHandler {
         return this.fileContentRepo.updateMappingForFile(fileId, mappingId)
     }
 
-    public async updateFileStatusWithMappedStatus(fileId) {
-        return this.fileContentRepo.updateFileStatusWithMappedStatus(fileId)
+    public async updateFileStatus(fileId,status) {
+        return this.fileContentRepo.updateFileStatus(fileId,status)
     }
 
     public async getFileContentById(fileId): Promise<IFileContent> {
